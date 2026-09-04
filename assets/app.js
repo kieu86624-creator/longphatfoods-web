@@ -443,9 +443,43 @@ function hide(sel){ $(sel).hidden = true; if ($("[data-modal]").hidden && $("[da
 const escapeHtml = s => String(s).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 const escapeAttr = s => escapeHtml(s).replace(/"/g, "&quot;");
 
+/* ---------- Tra cứu đơn theo SĐT ---------- */
+function initLookup(){
+  const form = $("[data-lookup-form]");
+  if (!form) return;
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const phone = ($("[data-lookup-phone]").value || "").replace(/\D/g, "");
+    const box = $("[data-lookup-result]");
+    if (phone.length < 8) { box.innerHTML = `<p class="lk-msg">Số điện thoại chưa hợp lệ.</p>`; return; }
+    box.innerHTML = `<div class="spinner"></div>`;
+    try {
+      const r = await fetch("/lookup?phone=" + encodeURIComponent(phone));
+      const j = await r.json();
+      if (!j.ok) { box.innerHTML = `<p class="lk-msg">Không tra cứu được. Vui lòng thử lại hoặc gọi ${CONFIG.hotline || "hotline"}.</p>`; return; }
+      if (!j.orders.length) { box.innerHTML = `<p class="lk-msg">Không tìm thấy đơn nào với số <strong>${escapeHtml(phone)}</strong>.</p>`; return; }
+      box.innerHTML = `<p class="lk-count">Tìm thấy <strong>${j.orders.length}</strong> đơn:</p>` + j.orders.map(o => `
+        <div class="lk-order">
+          <div class="lk-top">
+            <span class="lk-id">#${escapeHtml(String(o.id))}</span>
+            <span class="lk-status s${o.status_code}">${escapeHtml(o.status)}</span>
+          </div>
+          <div class="lk-items">${escapeHtml(o.items || "")}</div>
+          <div class="lk-foot">
+            <span>${escapeHtml((o.date || "").replace("T", " ").slice(0, 16))}</span>
+            <b>${fmt(o.total)}</b>
+          </div>
+        </div>`).join("");
+    } catch (err) {
+      box.innerHTML = `<p class="lk-msg">Có lỗi khi tra cứu. Vui lòng gọi ${CONFIG.hotline || "hotline"}.</p>`;
+    }
+  };
+}
+
 /* ---------- Boot + sự kiện ---------- */
 initStatic();
 initFilters();
+initLookup();
 render();
 $("#q").addEventListener("input", e => { state.q = e.target.value; render(); });
 document.addEventListener("click", e => {

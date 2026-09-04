@@ -375,3 +375,22 @@ a{color:inherit; text-decoration:none}
 /* Spinner khi gửi đơn */
 .spinner{width:40px;height:40px;margin:20px auto 0;border:4px solid var(--line);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============ TRA CỨU ĐƠN ============ */
+.lookup{background:var(--paper); border-top:1px solid var(--line)}
+.lookup>.wrap{padding:60px 20px}
+.lookup-form{display:flex; gap:10px; max-width:520px; margin:24px auto 0; flex-wrap:wrap}
+.lookup-form input{flex:1 1 240px; padding:13px 16px; border:1px solid var(--line); border-radius:999px; background:var(--cream); font:inherit; color:var(--ink)}
+.lookup-form input:focus{outline:none; border-color:var(--green); box-shadow:0 0 0 3px rgba(31,70,53,.12)}
+.lookup-result{max-width:640px; margin:24px auto 0; display:flex; flex-direction:column; gap:12px}
+.lk-msg{text-align:center; color:var(--muted)}
+.lk-count{color:var(--muted); font-size:14px; margin:0}
+.lk-order{background:var(--cream); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.lk-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
+.lk-id{font-family:"Playfair Display",serif; font-weight:700; color:var(--green); font-size:16px}
+.lk-status{font-size:12px; font-weight:600; padding:4px 12px; border-radius:999px; background:#eef1e9; color:var(--green)}
+.lk-status.s4{background:#e2f2e5; color:#1f7a3a}
+.lk-status.s5,.lk-status.s6,.lk-status.s7,.lk-status.s9{background:#fbe6e6; color:#b23b3b}
+.lk-items{font-size:14px; color:var(--ink); line-height:1.5}
+.lk-foot{display:flex; justify-content:space-between; align-items:center; margin-top:10px; padding-top:10px; border-top:1px solid var(--line); font-size:13px; color:var(--muted)}
+.lk-foot b{font-family:"Playfair Display",serif; font-size:17px; color:var(--green)}
