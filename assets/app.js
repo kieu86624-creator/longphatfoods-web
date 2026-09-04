@@ -173,7 +173,16 @@ function detailRows(p){
 }
 
 /* ---------- Modal chi tiết ---------- */
+/* ---------- Meta Pixel ---------- */
+function pixel(event, data, opts){
+  try { if (window.fbq) fbq("track", event, data || {}, opts || {}); } catch (e) {}
+}
+
 function openModal(p){
+  pixel("ViewContent", {
+    content_ids: [p.vid || String(p._i)], content_name: p.name,
+    content_type: "product", value: p.price, currency: "VND",
+  });
   const imgs = (p.imgs && p.imgs.length) ? p.imgs : [p.img];
   $("[data-modal-body]").innerHTML = `
     <div class="modal-gallery">
@@ -209,7 +218,12 @@ const closeModal = () => hide("[data-modal]");
 /* ---------- Thao tác giỏ ---------- */
 function addToCart(i, qty = 1){
   state.cart[i] = (state.cart[i] || 0) + qty; saveCart(); syncCartBadge();
-  toast(`Đã thêm “${DATA.products[i].name}” vào giỏ`);
+  const p = DATA.products[i];
+  pixel("AddToCart", {
+    content_ids: [p.vid || String(i)], content_name: p.name,
+    content_type: "product", value: p.price * qty, currency: "VND",
+  });
+  toast(`Đã thêm “${p.name}” vào giỏ`);
   if (!$("[data-drawer]").hidden) renderCart();
 }
 function setQty(i, qty){
@@ -287,6 +301,11 @@ function freeShipBar(){
 /* ---------- Màn thanh toán ---------- */
 function renderCheckout(){
   $("[data-drawer-title]").textContent = "Thông tin đặt hàng";
+  const cids = Object.keys(state.cart).filter(i => DATA.products[i]).map(i => DATA.products[i].vid || i);
+  pixel("InitiateCheckout", {
+    content_ids: cids, content_type: "product",
+    num_items: cartQtyTotal(), value: cartSubtotal(), currency: "VND",
+  });
   const sub = cartSubtotal(), free = isFreeShip();
   const shipTxt = free ? "Miễn phí" : (CONFIG.shipFee == null ? "Liên hệ" : fmt(CONFIG.shipFee));
   $("[data-drawer-body]").innerHTML = `
@@ -388,6 +407,14 @@ function renderDone(info, result){
   const text = buildOrderText(info);
 
   if (ok) {
+    // Purchase — chỉ bắn khi có mã đơn POS thật; eventID khớp CAPI để Meta gộp trùng.
+    if (result && result.order_id) {
+      const cids = Object.keys(state.cart).filter(i => DATA.products[i]).map(i => DATA.products[i].vid || i);
+      pixel("Purchase", {
+        content_ids: cids, content_type: "product",
+        num_items: cartQtyTotal(), value: cartSubtotal(), currency: "VND",
+      }, { eventID: "purchase_1636075895_" + result.order_id });
+    }
     $("[data-drawer-title]").textContent = "Đặt hàng thành công";
     $("[data-drawer-body]").innerHTML = `
       <div class="done">
