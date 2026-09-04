@@ -7,7 +7,7 @@
 const SHOP_ID      = "1636075895";
 const WAREHOUSE_ID = "08deecd2-b6d8-48fe-ae29-66f6268cb4f7"; // Kho Chính
 const FREESHIP_MIN = 2;
-const TG_CHAT_ID   = "8943513268";                            // chat nhận báo đơn mới (không bí mật)
+const TG_CHAT_ID   = "8819048002";                            // DM riêng cho sếp (bot @Thukucuahung_bot); đổi sang -5447555099 nếu muốn báo vào nhóm
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json; charset=utf-8",
