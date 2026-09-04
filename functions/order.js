@@ -7,6 +7,7 @@
 const SHOP_ID      = "1636075895";
 const WAREHOUSE_ID = "08deecd2-b6d8-48fe-ae29-66f6268cb4f7"; // Kho Chính
 const FREESHIP_MIN = 2;
+const TG_CHAT_ID   = "8943513268";                            // chat nhận báo đơn mới (không bí mật)
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json; charset=utf-8",
@@ -73,12 +74,45 @@ export async function onRequestPost(context) {
     if (r.status === 200 || r.status === 201) {
       let o = {};
       try { const j = JSON.parse(text); o = j.data || j; } catch (e) {}
-      return json({ ok: true, order_id: o.system_id || o.id || null });
+      const orderId = o.system_id || o.id || null;
+      // Báo đơn mới về Telegram (chạy nền, không chặn phản hồi, lỗi không làm hỏng đơn).
+      const notify = notifyTelegram(env, d, payload, orderId);
+      if (context.waitUntil) context.waitUntil(notify); else await notify.catch(() => {});
+      return json({ ok: true, order_id: orderId });
     }
     return json({ ok: false, error: "pos_" + r.status, detail: text }, 502);
   } catch (e) {
     return json({ ok: false, error: String(e) }, 500);
   }
+}
+
+// Gửi tin báo đơn mới vào Telegram. Token đọc từ secret TG_BOT_TOKEN (Pages → Settings → Variables).
+async function notifyTelegram(env, d, payload, orderId) {
+  try {
+    const token = env.TG_BOT_TOKEN;
+    if (!token) return; // chưa cấu hình token → bỏ qua, không ảnh hưởng đơn
+    const money = n => (Number(n) || 0).toLocaleString("vi-VN") + "đ";
+    const ship  = payload.is_free_shipping ? "Miễn phí (đơn ≥ " + FREESHIP_MIN + " sp)" : "Tính khi giao";
+    const lines = [
+      "🛒 ĐƠN MỚI TỪ WEB — longphatfoods.com.vn",
+      orderId ? ("🧾 Mã POS: #" + orderId) : null,
+      d.orderId ? ("🔖 Mã web: " + d.orderId) : null,
+      "👤 " + (d.name || "—"),
+      "📞 " + (d.phone || "—"),
+      "🏠 " + (d.address || "—"),
+      "📦 " + (d.items || "—"),
+      "🚚 " + ship,
+      "💰 Tổng: " + money(d.total),
+      d.note ? ("📝 Ghi chú: " + d.note) : null,
+      d.time ? ("🕒 " + d.time) : null,
+    ].filter(Boolean);
+    const body = { chat_id: TG_CHAT_ID, text: lines.join("\n"), disable_web_page_preview: true };
+    await fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify(body),
+    });
+  } catch (e) { /* nuốt lỗi: đơn vẫn được tạo dù báo Telegram lỗi */ }
 }
 
 function json(obj, status = 200) {
