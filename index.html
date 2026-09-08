@@ -226,6 +226,43 @@
     footer .fbrand{font-family:"Playfair Display",serif; color:var(--gold-2); font-size:20px; letter-spacing:.04em; margin-bottom:10px}
     footer p{margin:4px 0}
 
+    /* ---------- Lời ngỏ ---------- */
+    .message{background:var(--cream)}
+    .message-card{max-width:840px; margin:0 auto; text-align:center}
+    .message-card .qmark{font-family:"Playfair Display",serif; font-size:96px; line-height:.5; color:var(--gold); opacity:.35; height:50px}
+    .message-card .lead{font-family:"Playfair Display",serif; font-style:italic; font-size:clamp(18px,2.4vw,23px); color:var(--green-2); margin-bottom:20px}
+    .message-card p{color:var(--muted); font-size:15.5px; margin-bottom:15px}
+    .message-sign{margin-top:30px; display:flex; flex-direction:column; align-items:center; gap:12px}
+    .message-sign img{width:82px; height:82px; border-radius:50%; object-fit:cover; object-position:center 20%; box-shadow:0 0 0 1.5px var(--gold-2), 0 8px 20px -10px rgba(18,51,41,.5)}
+    .message-sign b{font-family:"Playfair Display",serif; color:var(--green); font-size:20px}
+    .message-sign span{font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); font-weight:700}
+
+    /* ---------- Vì sao chọn ---------- */
+    .why{background:var(--paper)}
+    .why-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px}
+    .why-item{text-align:center; padding:34px 22px; border:1px solid var(--line); border-radius:16px; background:var(--paper); transition:.25s}
+    .why-item:hover{transform:translateY(-5px); box-shadow:var(--shadow); border-color:var(--gold-2)}
+    .why-item .ic{width:62px; height:62px; margin:0 auto 18px; border-radius:50%; display:grid; place-items:center; font-size:26px; background:linear-gradient(140deg,var(--green-2),var(--green)); color:var(--gold-2)}
+    .why-item h4{font-family:"Playfair Display",serif; font-size:19px; color:var(--green); margin-bottom:8px}
+    .why-item p{font-size:13.5px; color:var(--muted); line-height:1.6}
+
+    /* ---------- Chặng đường ---------- */
+    .journey{background:var(--cream)}
+    .timeline{display:grid; grid-template-columns:repeat(4,1fr); gap:26px; position:relative}
+    .timeline::before{content:""; position:absolute; top:20px; left:10%; right:10%; height:2px; background:linear-gradient(90deg,var(--gold-2),var(--gold))}
+    .tl{position:relative; text-align:center}
+    .tl .dot{width:42px; height:42px; border-radius:50%; margin:0 auto 20px; background:var(--green); color:var(--gold-2); display:grid; place-items:center; font-family:"Playfair Display",serif; font-weight:700; font-size:15px; position:relative; z-index:2; box-shadow:0 0 0 5px var(--cream)}
+    .tl h4{font-family:"Playfair Display",serif; font-size:18px; color:var(--green); margin-bottom:8px}
+    .tl p{font-size:13.5px; color:var(--muted); line-height:1.6}
+
+    /* ---------- Quy trình ---------- */
+    .process{background:var(--paper)}
+    .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:22px}
+    .step{background:var(--cream); border:1px solid var(--line); border-radius:16px; padding:30px 26px}
+    .step .num{font-family:"Playfair Display",serif; font-size:46px; color:var(--gold); opacity:.55; line-height:1}
+    .step h4{font-family:"Playfair Display",serif; font-size:18px; color:var(--green); margin:10px 0 8px}
+    .step p{font-size:13.5px; color:var(--muted); line-height:1.6}
+
     /* ---------- Responsive ---------- */
     @media(max-width:900px){
       .menu{
@@ -238,7 +275,9 @@
       .menu .cta{margin:12px 24px; text-align:center}
       .burger{display:block}
       .about-grid,.vm-grid{grid-template-columns:1fr; gap:40px}
-      .values{grid-template-columns:1fr 1fr}
+      .values,.why-grid,.steps{grid-template-columns:1fr 1fr}
+      .timeline{grid-template-columns:1fr 1fr; gap:34px}
+      .timeline::before{display:none}
       .leader{grid-template-columns:1fr; gap:28px; text-align:center}
       .leader:nth-child(even) .portrait{order:0}
       .leader-body .quote{border-left:0; padding-left:0}
@@ -247,7 +286,7 @@
     }
     @media(max-width:480px){
       section{padding:72px 0}
-      .values{grid-template-columns:1fr}
+      .values,.why-grid,.steps,.timeline{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -304,6 +343,30 @@
     </div>
   </section>
 
+  <!-- MESSAGE -->
+  <section class="message">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow center">Lời ngỏ</div>
+        <h2>Thông điệp từ Ban lãnh đạo</h2>
+      </div>
+      <div class="message-card">
+        <div class="qmark">“</div>
+        <p class="lead">Kính chào Quý khách hàng và Quý đối tác thân mến,</p>
+        <p>Thay mặt toàn thể Đại Long Phát, tôi xin gửi lời cảm ơn chân thành đến Quý vị đã luôn tin tưởng và đồng hành cùng chúng tôi trên suốt chặng đường qua.</p>
+        <p>Khởi nguồn từ khát vọng đưa đặc sản của quê hương đến với mọi gia đình, chúng tôi hiểu rằng mỗi sản phẩm làm ra không chỉ là hàng hóa, mà còn là chữ tín và tấm lòng của người làm nghề. Bởi vậy, chất lượng và sự tử tế luôn là điều chúng tôi đặt lên hàng đầu trong từng việc mình làm.</p>
+        <p>Đại Long Phát cam kết không ngừng hoàn thiện mỗi ngày, để mang đến những sản phẩm an toàn, chất lượng và giàu giá trị — xứng đáng với niềm tin mà Quý vị đã dành cho chúng tôi.</p>
+        <div class="message-sign">
+          <img src="assets/team/trankhacanhtuan.jpg" alt="Trần Khắc Anh Tuấn" onerror="this.remove()" />
+          <div>
+            <b>Trần Khắc Anh Tuấn</b><br>
+            <span>Giám đốc</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- VISION / MISSION / VALUES -->
   <section class="vm" id="tam-nhin">
     <div class="wrap">
@@ -329,6 +392,57 @@
         <div class="value"><div class="n">02</div><h4>Chính trực</h4><p>Trung thực, minh bạch trong từng cam kết và hành động.</p></div>
         <div class="value"><div class="n">03</div><h4>Chất lượng</h4><p>Không ngừng nâng cao tiêu chuẩn từ nguyên liệu đến thành phẩm.</p></div>
         <div class="value"><div class="n">04</div><h4>Bền vững</h4><p>Phát triển hài hòa cùng cộng đồng và người nông dân.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow center">Cam kết của chúng tôi</div>
+        <h2>Vì sao chọn Đại Long Phát</h2>
+        <p>Những giá trị làm nên sự khác biệt và niềm tin nơi khách hàng.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item"><div class="ic">🌾</div><h4>Nguyên liệu tuyển chọn</h4><p>Chọn lọc kỹ lưỡng từ nguồn, ưu tiên nguyên liệu tự nhiên và an toàn.</p></div>
+        <div class="why-item"><div class="ic">⚙️</div><h4>Quy trình chuẩn mực</h4><p>Chế biến bài bản, kiểm soát chất lượng chặt chẽ ở từng công đoạn.</p></div>
+        <div class="why-item"><div class="ic">🎁</div><h4>Đóng gói chỉn chu</h4><p>Tinh tế và trang trọng, phù hợp để thưởng thức và làm quà tặng.</p></div>
+        <div class="why-item"><div class="ic">💚</div><h4>Tận tâm phục vụ</h4><p>Luôn lắng nghe, hỗ trợ và đồng hành cùng khách hàng bằng cả tấm lòng.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section class="journey">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow center">Chặng đường</div>
+        <h2>Hành trình hình thành &amp; phát triển</h2>
+        <p>Từ khát vọng ban đầu đến thương hiệu đặc sản được tin yêu hôm nay.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl"><div class="dot">1</div><h4>Khởi nguồn</h4><p>Ấp ủ khát vọng đưa đặc sản của quê hương Nghệ An vươn xa hơn.</p></div>
+        <div class="tl"><div class="dot">2</div><h4>Đặt nền móng</h4><p>Thành lập Đại Long Phát, xây dựng những dòng sản phẩm đầu tiên.</p></div>
+        <div class="tl"><div class="dot">3</div><h4>Phát triển</h4><p>Mở rộng ngành hàng, hoàn thiện chất lượng và định hình thương hiệu.</p></div>
+        <div class="tl"><div class="dot">4</div><h4>Vươn xa</h4><p>Đưa sản phẩm đến mọi miền và hướng tới thị trường quốc tế.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow center">Quy trình sản xuất</div>
+        <h2>Chuẩn mực trong từng công đoạn</h2>
+        <p>Sự bài bản và tỉ mỉ tạo nên chất lượng trọn vẹn cho mỗi sản phẩm.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="num">01</div><h4>Tuyển chọn nguyên liệu</h4><p>Lựa chọn nguồn nguyên liệu đạt chuẩn, tươi ngon và an toàn.</p></div>
+        <div class="step"><div class="num">02</div><h4>Chế biến</h4><p>Chế biến tỉ mỉ, giữ trọn hương vị tự nhiên và giá trị dinh dưỡng.</p></div>
+        <div class="step"><div class="num">03</div><h4>Kiểm tra chất lượng</h4><p>Kiểm soát nghiêm ngặt để bảo đảm sản phẩm đạt tiêu chuẩn.</p></div>
+        <div class="step"><div class="num">04</div><h4>Đóng gói &amp; giao hàng</h4><p>Đóng gói chỉn chu và giao đến tận tay khách hàng trọn vẹn.</p></div>
       </div>
     </div>
   </section>
