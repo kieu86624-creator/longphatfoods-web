@@ -230,6 +230,7 @@ document.querySelectorAll('#nav button').forEach(b=>{
     document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('on', x===b));
     MUC.forEach(([k])=>document.getElementById('s-'+k).classList.toggle('hien', k===dangXem));
     document.getElementById('tieu-de').textContent = MUC.find(([k])=>k===dangXem)[1];
+    hienOChinh();
   };
 });
 
@@ -297,6 +298,12 @@ function bieuDo(ds, lay, nhan1, nhan2){
     <div class="chuthich"><span><i style="background:var(--dong)"></i>${nhan1}</span>
       <span><i style="background:var(--ngoc)"></i>${nhan2}</span>
       <span><i style="background:var(--san)"></i>Lỗ</span></div>`;
+}
+
+/** Hàng ô doanh thu/lãi chỉ thuộc về Tổng quan — sang mục khác thì cất đi
+ *  cho khỏi lẫn với số của mục đang xem. */
+function hienOChinh(){
+  document.getElementById('o-chinh').style.display = (dangXem === 'tongquan') ? '' : 'none';
 }
 
 /** Kỳ này có còn đúng ngày không — số ads tính từ hôm trước rất dễ nhìn nhầm. */
@@ -436,11 +443,13 @@ function ve(){
   document.getElementById('o-chinh').innerHTML = [
     ['Doanh thu ' + (t.so_ngay||0) + ' ngày', tien(t.doanh_thu)+'đ', 'vang', tien(t.don)+' đơn chốt'],
     ['Lãi sau ads', tien(t.loi_nhuan_sau_ads)+'đ', (t.loi_nhuan_sau_ads>=0?'xanh':'do'), 'đã trừ giá vốn và quảng cáo'],
-    ['Chi quảng cáo', tien(t.chi_ads)+'đ', 'lam', ta.roas ? ('ROAS 7 ngày ' + so2(ta.roas)) : ''],
+    ['Chi quảng cáo', tien(t.chi_ads)+'đ', 'lam',
+      ta.roas ? ('ROAS ' + esc((layKy()||{}).ten_ky || '') + ' ' + so2(ta.roas)) : ''],
     ['Bộ máy', (nv.length||0) + ' nhân viên', (hong?'do':'xanh'), coLich.length + ' người có lịch · ' + hong + ' hỏng'],
     ['Kho nội dung', tien(kho && kho.tong_con) + ' video', 'vang', 'chưa dùng / ' + tien(kho && kho.tong_kho)],
   ].map(([n,s,m,d])=>`<div class="the"><div class="nhan">${n}</div>
       <div class="so ${m}">${s}</div><div class="duoi-the">${d||''}</div></div>`).join('');
+  hienOChinh();
 
   // ---------- tổng quan ----------
   const ngay = (don && don.theo_ngay) ? don.theo_ngay.slice(0,14).reverse() : [];
