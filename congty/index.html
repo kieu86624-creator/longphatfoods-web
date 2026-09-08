@@ -178,7 +178,10 @@
         <h1 id="tieu-de">Tổng quan</h1>
         <div class="luc" id="luc">đang tải số liệu…</div>
       </div>
-      <button class="lam-moi" onclick="tai()">Tải lại</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="lam-moi" onclick="tai()">Xem lại</button>
+        <button class="lam-moi" id="nut-keo" onclick="keoSoMoi()">Lấy số mới từ máy</button>
+      </div>
     </header>
 
     <div class="o" id="o-chinh"></div>
@@ -230,8 +233,8 @@ document.querySelectorAll('#nav button').forEach(b=>{
   };
 });
 
-async function tai(){
-  document.getElementById('luc').textContent = 'đang tải số liệu…';
+async function tai(imLang){
+  if(!imLang) document.getElementById('luc').textContent = 'đang tải số liệu…';
   let j;
   try { const r = await fetch('/congty/api/data');
         if(r.status === 401){ location.href='/congty/login'; return; }
@@ -240,6 +243,35 @@ async function tai(){
   if(!j.ok){ document.getElementById('luc').textContent = j.tin || 'không lấy được số liệu'; return; }
   D = j; document.getElementById('ai').textContent = 'Đang xem: ' + (j.nguoi_xem||'—');
   ve();
+}
+
+/** Nhờ máy nhà kéo số mới. Web không tự chạy được gì trên máy — nó chỉ để lại
+ *  yêu cầu, máy nhà kiểm mỗi 2 phút rồi đẩy lên, xong trang tự hiện số mới. */
+let dangCho = null;
+async function keoSoMoi(){
+  const nut = document.getElementById('nut-keo');
+  const cuMocs = JSON.stringify(D ? D.cap_nhat : {});
+  nut.disabled = true; nut.textContent = 'Đã báo máy nhà…';
+  try {
+    const j = await (await fetch('/congty/api/lam-moi', {method:'POST'})).json();
+    if(!j.ok){ nut.disabled=false; nut.textContent='Lấy số mới từ máy';
+               document.getElementById('luc').textContent = j.tin || 'không gửi được yêu cầu'; return; }
+  } catch(e){ nut.disabled=false; nut.textContent='Lấy số mới từ máy'; return; }
+
+  let lan = 0;
+  clearInterval(dangCho);
+  dangCho = setInterval(async ()=>{
+    lan++;
+    nut.textContent = `Đang chờ máy nhà… ${lan*15}s`;
+    await tai(true);
+    if(JSON.stringify(D ? D.cap_nhat : {}) !== cuMocs){
+      clearInterval(dangCho); nut.disabled=false; nut.textContent='Lấy số mới từ máy';
+    } else if(lan >= 24){          // 6 phút vẫn im thì thôi
+      clearInterval(dangCho); nut.disabled=false; nut.textContent='Lấy số mới từ máy';
+      document.getElementById('luc').textContent =
+        'Máy nhà chưa trả lời sau 6 phút — có thể máy đang tắt.';
+    }
+  }, 15000);
 }
 
 async function dangXuat(){
@@ -265,6 +297,20 @@ function bieuDo(ds, lay, nhan1, nhan2){
     <div class="chuthich"><span><i style="background:var(--dong)"></i>${nhan1}</span>
       <span><i style="background:var(--ngoc)"></i>${nhan2}</span>
       <span><i style="background:var(--san)"></i>Lỗ</span></div>`;
+}
+
+/** Kỳ này có còn đúng ngày không — số ads tính từ hôm trước rất dễ nhìn nhầm. */
+function canhBaoCu(ky){
+  const hnay = new Date(); const p = n=>String(n).padStart(2,'0');
+  const homNay = `${hnay.getFullYear()}-${p(hnay.getMonth()+1)}-${p(hnay.getDate())}`;
+  const canDen = {homnay: homNay, '7ngay': homNay, '30ngay': homNay, thangnay: homNay}[kyChon];
+  const lech = canDen && ky.den !== canDen;
+  const tinh = ky.tinh_luc ? `Số tính lúc <b>${esc(ky.tinh_luc)}</b>.` : '';
+  if(!lech) return tinh ? `<p class="mota">${tinh}</p>` : '';
+  return `<div style="background:var(--san-mo);border:1px solid var(--san);border-radius:10px;
+    padding:11px 13px;margin-bottom:14px;font-size:13.5px;color:var(--san)">
+    ⚠️ Số này tính đến <b>${esc(ky.den)}</b>, chưa có ngày hôm nay (${esc(homNay)}).
+    ${tinh} Máy nhà sẽ tự tính lại ở lần đẩy kế tiếp.</div>`;
 }
 
 /** Mục Quảng cáo: chọn kỳ, lọc tài khoản, lọc ad lỗ — tất cả tính ngay trên máy sếp. */
@@ -315,6 +361,7 @@ function veAds(){
     <p class="mota">${ky.so_ngay} ngày · ${ds.length} quảng cáo (${soBat} đang bật,
       <span class="do">${soLo} đang lỗ</span>)${locTk?` · lọc theo <b>${esc(locTk)}</b>`:''}.
       Lãi đã trừ giá vốn, không phải chỉ nhìn ROAS.</p>
+    ${canhBaoCu(ky)}
 
     <div class="o">
       <div class="the"><div class="nhan">Chi</div><div class="so vang">${tien(t.chi)}đ</div></div>
