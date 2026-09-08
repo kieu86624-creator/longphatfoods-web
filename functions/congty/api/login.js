@@ -6,6 +6,15 @@ const TOI_DA_SAI = 8;
 const CUA_SO_PHUT = 15;
 
 export async function onRequestPost(context) {
+  try {
+    return await xuLyDangNhap(context);
+  } catch (err) {
+    // Không để Worker văng ra lỗi 1101 trống trơn — nói rõ hỏng ở đâu.
+    return json({ ok: false, tin: "Lỗi máy chủ khi đăng nhập: " + (err && err.message) }, 500);
+  }
+}
+
+async function xuLyDangNhap(context) {
   const { request, env } = context;
   const { CONGTY_USER, CONGTY_PASS_HASH, CONGTY_SALT, CONGTY_SESSION_SECRET, CONGTY_KV } = env;
 
