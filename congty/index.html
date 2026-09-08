@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Công ty Đại Long Phát</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --nen:#0A0E13; --tam:#121A22; --tam2:#0F161D; --vien:#1E2A35; --vien-nhat:#182430;
+    --chu:#E7EEF5; --chu-mo:#8395A5; --chu-nhat:#5C6B7A;
+    --dong:#D9A441; --dong-mo:rgba(217,164,65,.12);
+    --ngoc:#3FB98A; --ngoc-mo:rgba(63,185,138,.12);
+    --san:#E86A6A; --san-mo:rgba(232,106,106,.12);
+    --lam:#5B9BD5; --lam-mo:rgba(91,155,213,.12);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--nen);color:var(--chu);
+       font-family:"Be Vietnam Pro",system-ui,sans-serif;font-size:15px;line-height:1.55}
+  a{color:var(--dong)}
+  .khung{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+
+  /* ---------- cột trái ---------- */
+  aside{background:var(--tam2);border-right:1px solid var(--vien);padding:20px 14px;
+        position:sticky;top:0;height:100vh;overflow-y:auto}
+  .hieu{display:flex;align-items:center;gap:10px;padding:0 6px 18px;border-bottom:1px solid var(--vien);margin-bottom:16px}
+  .huy{width:38px;height:38px;border-radius:10px;flex:none;display:grid;place-items:center;
+       background:linear-gradient(145deg,#E5B45C,#B8842C);color:#221703;font-weight:700;font-size:15px}
+  .hieu b{display:block;font-size:14px;line-height:1.3}
+  .hieu span{font-size:11.5px;color:var(--chu-nhat)}
+  nav{display:flex;flex-direction:column;gap:3px}
+  nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+    background:none;border:0;color:var(--chu-mo);font:inherit;font-size:14px;
+    padding:9px 11px;border-radius:9px;cursor:pointer}
+  nav button:hover{background:var(--vien-nhat);color:var(--chu)}
+  nav button.on{background:var(--dong-mo);color:var(--dong);font-weight:600}
+  nav button i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.55;flex:none}
+  .duoi{margin-top:20px;padding-top:16px;border-top:1px solid var(--vien);font-size:12px;color:var(--chu-nhat)}
+  .duoi button{width:100%;margin-top:10px;padding:8px;border-radius:8px;border:1px solid var(--vien);
+    background:none;color:var(--chu-mo);font:inherit;font-size:13px;cursor:pointer}
+  .duoi button:hover{border-color:var(--san);color:var(--san)}
+
+  /* ---------- nội dung ---------- */
+  main{padding:26px 30px 60px;min-width:0}
+  header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+  h1{font-size:22px;margin:0 0 3px;letter-spacing:-.01em}
+  .luc{font-size:12.5px;color:var(--chu-nhat)}
+  .lam-moi{padding:7px 13px;border-radius:8px;border:1px solid var(--vien);background:var(--tam);
+    color:var(--chu-mo);font:inherit;font-size:13px;cursor:pointer}
+  .lam-moi:hover{border-color:var(--dong);color:var(--dong)}
+
+  .o{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:22px}
+  .the{background:var(--tam);border:1px solid var(--vien);border-radius:12px;padding:15px 16px}
+  .the .nhan{font-size:11.5px;color:var(--chu-nhat);letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+  .the .so{font-family:"IBM Plex Mono",monospace;font-size:23px;font-weight:500;line-height:1.15;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .the .duoi-the{font-size:12px;color:var(--chu-nhat);margin-top:5px}
+  .vang{color:var(--dong)} .xanh{color:var(--ngoc)} .do{color:var(--san)} .lam{color:var(--lam)}
+
+  section{display:none}
+  section.hien{display:block}
+  h2{font-size:16px;margin:26px 0 4px;font-weight:600}
+  h2:first-child{margin-top:0}
+  .mota{color:var(--chu-nhat);font-size:12.5px;margin:0 0 13px}
+
+  .bang{background:var(--tam);border:1px solid var(--vien);border-radius:12px;overflow:hidden;margin-bottom:18px}
+  .cuon{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:640px;font-size:13.5px}
+  th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--chu-nhat);
+     padding:11px 14px;border-bottom:1px solid var(--vien);white-space:nowrap;background:var(--tam2)}
+  th.p{text-align:right}
+  td{padding:10px 14px;border-bottom:1px solid var(--vien-nhat);vertical-align:middle}
+  tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:rgba(255,255,255,.018)}
+  td.s{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  td.t{font-weight:500} td.m{color:var(--chu-mo);font-size:13px}
+
+  .nhan-tt{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  .tt0{background:var(--ngoc-mo);color:var(--ngoc)}
+  .tt1{background:var(--dong-mo);color:var(--dong)}
+  .tt2{background:var(--san-mo);color:var(--san)}
+  .ttx{background:var(--vien-nhat);color:var(--chu-nhat)}
+
+  .bieudo{background:var(--tam);border:1px solid var(--vien);border-radius:12px;padding:17px 18px;margin-bottom:18px}
+  .bieudo h3{margin:0 0 2px;font-size:14px;font-weight:600}
+  .bieudo p{margin:0 0 14px;font-size:12px;color:var(--chu-nhat)}
+  .chuthich{display:flex;gap:16px;font-size:12px;color:var(--chu-nhat);margin-top:8px;flex-wrap:wrap}
+  .chuthich i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+
+  .phong{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:20px}
+  .pb{background:var(--tam);border:1px solid var(--vien);border-radius:12px;padding:14px 15px;border-top:2px solid var(--mau,var(--dong))}
+  .pb h4{margin:0 0 2px;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--mau,var(--dong))}
+  .pb .dem{font-family:"IBM Plex Mono",monospace;font-size:19px;margin-bottom:4px}
+  .pb .nv{font-size:12px;color:var(--chu-nhat);line-height:1.6}
+
+  .trong{padding:40px 18px;text-align:center;color:var(--chu-nhat);font-size:13.5px;
+    border:1px dashed var(--vien);border-radius:12px;background:var(--tam2)}
+
+  /* ---------- thanh lọc ---------- */
+  .loc{background:var(--tam);border:1px solid var(--vien);border-radius:12px;
+       padding:13px 14px;margin-bottom:16px;display:flex;flex-direction:column;gap:11px}
+  .ky{display:flex;gap:6px;flex-wrap:wrap}
+  .ky button{padding:6px 14px;border-radius:20px;border:1px solid var(--vien);background:var(--tam2);
+    color:var(--chu-mo);font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
+  .ky button:hover{border-color:var(--dong);color:var(--dong)}
+  .ky button.on{background:var(--dong-mo);border-color:var(--dong);color:var(--dong);font-weight:600}
+  .hang-loc{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+  .hang-loc label{font-size:12px;color:var(--chu-nhat);display:flex;align-items:center;gap:6px}
+  select{padding:6px 10px;border-radius:8px;border:1px solid var(--vien);background:var(--tam2);
+    color:var(--chu);font:inherit;font-size:13px;max-width:230px}
+  select:focus{outline:none;border-color:var(--dong)}
+
+  /* ---------- điện thoại ---------- */
+  @media(max-width:900px){
+    .khung{grid-template-columns:1fr}
+    aside{position:sticky;top:0;z-index:20;height:auto;border-right:0;border-bottom:1px solid var(--vien);
+          padding:12px 12px 10px;background:rgba(15,22,29,.96);backdrop-filter:blur(8px)}
+    .hieu{padding:0 2px 10px;margin-bottom:10px}
+    .huy{width:32px;height:32px;font-size:13px;border-radius:9px}
+    nav{flex-direction:row;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:2px;
+        scrollbar-width:none}
+    nav::-webkit-scrollbar{display:none}
+    nav button{width:auto;white-space:nowrap;padding:7px 13px;border-radius:20px;
+               border:1px solid var(--vien);font-size:13px}
+    nav button i{display:none}
+    .duoi{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:11px;padding-top:10px}
+    .duoi button{width:auto;margin-top:0;padding:6px 12px;font-size:12.5px}
+    main{padding:16px 13px 46px}
+    header{margin-bottom:16px}
+    h1{font-size:19px}
+    .o{grid-template-columns:repeat(2,1fr);gap:9px}
+    .the{padding:12px 13px}
+    .the .so{font-size:19px}
+    .the .nhan{font-size:10.5px}
+    .phong{grid-template-columns:repeat(2,1fr)}
+    select{max-width:100%;flex:1}
+  }
+
+  /* Bảng quan trọng: trên điện thoại đổi thành thẻ xếp dọc, khỏi phải kéo ngang. */
+  @media(max-width:640px){
+    .o{grid-template-columns:1fr 1fr}
+    table.gon{min-width:0;display:block}
+    table.gon thead{display:none}
+    table.gon tbody,table.gon tr,table.gon td{display:block;width:100%}
+    table.gon tr{padding:11px 13px;border-bottom:1px solid var(--vien);position:relative}
+    table.gon tr:last-child{border-bottom:0}
+    table.gon td{padding:3px 0;border:0;display:flex;justify-content:space-between;gap:14px;align-items:baseline}
+    table.gon td::before{content:attr(data-nhan);color:var(--chu-nhat);font-size:11.5px;
+      letter-spacing:.04em;text-transform:uppercase;flex:none}
+    table.gon td:first-child{padding-bottom:7px;margin-bottom:5px;border-bottom:1px solid var(--vien-nhat)}
+    table.gon td:first-child::before{display:none}
+    table.gon td:first-child{font-weight:600;font-size:14.5px;display:block}
+    table.gon td.s{text-align:right}
+    .bieudo{padding:13px 12px}
+  }
+</style>
+</head>
+<body>
+<div class="khung">
+  <aside>
+    <div class="hieu">
+      <div class="huy">ĐLP</div>
+      <div><b>Đại Long Phát</b><span>Bảng điều hành</span></div>
+    </div>
+    <nav id="nav"></nav>
+    <div class="duoi">
+      <div id="ai">—</div>
+      <button onclick="dangXuat()">Đăng xuất</button>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <div>
+        <h1 id="tieu-de">Tổng quan</h1>
+        <div class="luc" id="luc">đang tải số liệu…</div>
+      </div>
+      <button class="lam-moi" onclick="tai()">Tải lại</button>
+    </header>
+
+    <div class="o" id="o-chinh"></div>
+
+    <section id="s-tongquan" class="hien"></section>
+    <section id="s-nhansu"></section>
+    <section id="s-lich"></section>
+    <section id="s-ads"></section>
+    <section id="s-don"></section>
+    <section id="s-kho"></section>
+  </main>
+</div>
+
+<script>
+const MUC = [
+  ['tongquan','Tổng quan'], ['nhansu','Nhân sự 5 phòng'], ['lich','Lịch báo cáo'],
+  ['ads','Quảng cáo'], ['don','Đơn hàng'], ['kho','Kho nội dung'],
+];
+let D = null, dangXem = 'tongquan';
+let kyChon = null, locTk = '', chiLo = false;   // bộ lọc của mục Quảng cáo
+
+/** Khối ads gồm nhiều kỳ; hàm này trả về kỳ đang chọn. */
+function layKy(){
+  const a = D && D.khoi && D.khoi.ads;
+  if(!a || !a.ky) return null;
+  const danh = Object.keys(a.ky);
+  if(!danh.length) return null;
+  if(!kyChon || !a.ky[kyChon]) kyChon = a.mac_dinh && a.ky[a.mac_dinh] ? a.mac_dinh : danh[0];
+  return a.ky[kyChon];
+}
+
+const esc = s => (s??'').toString().replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tien = n => Math.round(n||0).toLocaleString('vi-VN');
+const so2 = n => (Math.round((n||0)*100)/100).toLocaleString('vi-VN');
+const cat = (s,n)=>{ s=esc(s); return s.length>n ? s.slice(0,n)+'…' : s; };
+const dau = n => n>0 ? `<span class="xanh">+${tien(n)}đ</span>`
+                     : (n<0 ? `<span class="do">${tien(n)}đ</span>` : '0đ');
+const gio = iso => { if(!iso) return '—'; const d=new Date(iso);
+  return d.toLocaleString('vi-VN',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit'}); };
+
+document.getElementById('nav').innerHTML = MUC.map(([k,t])=>
+  `<button data-m="${k}" class="${k===dangXem?'on':''}"><i></i>${t}</button>`).join('');
+document.querySelectorAll('#nav button').forEach(b=>{
+  b.onclick = ()=>{
+    dangXem = b.dataset.m;
+    document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('on', x===b));
+    MUC.forEach(([k])=>document.getElementById('s-'+k).classList.toggle('hien', k===dangXem));
+    document.getElementById('tieu-de').textContent = MUC.find(([k])=>k===dangXem)[1];
+  };
+});
+
+async function tai(){
+  document.getElementById('luc').textContent = 'đang tải số liệu…';
+  let j;
+  try { const r = await fetch('/congty/api/data');
+        if(r.status === 401){ location.href='/congty/login'; return; }
+        j = await r.json();
+  } catch(e){ document.getElementById('luc').textContent = 'không kết nối được máy chủ'; return; }
+  if(!j.ok){ document.getElementById('luc').textContent = j.tin || 'không lấy được số liệu'; return; }
+  D = j; document.getElementById('ai').textContent = 'Đang xem: ' + (j.nguoi_xem||'—');
+  ve();
+}
+
+async function dangXuat(){
+  await fetch('/congty/api/logout',{method:'POST'});
+  location.href = '/congty/login';
+}
+
+function bieuDo(ds, lay, nhan1, nhan2){
+  if(!ds || ds.length < 2) return '';
+  const W = Math.max(600, ds.length*44), H = 168, B = 26, L = 6;
+  const gt = ds.map(lay);
+  const max = Math.max(...gt.flatMap(v=>[Math.abs(v.a), Math.abs(v.b)]), 1);
+  const bw = (W-L*2)/ds.length;
+  const cot = ds.map((d,i)=>{
+    const v = lay(d), x = L + i*bw;
+    const ha = (Math.abs(v.a)/max)*(H-B), hb = (Math.abs(v.b)/max)*(H-B);
+    const mb = v.b >= 0 ? 'var(--ngoc)' : 'var(--san)';
+    return `<rect x="${x+3}" y="${H-B-ha}" width="${bw/2-4}" height="${ha}" fill="var(--dong)" opacity=".8" rx="2"></rect>
+            <rect x="${x+bw/2+1}" y="${H-B-hb}" width="${bw/2-4}" height="${hb}" fill="${mb}" opacity=".85" rx="2"></rect>
+            <text x="${x+bw/2}" y="${H-9}" text-anchor="middle" font-size="9.5" fill="#5C6B7A">${esc(v.nhan)}</text>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img">${cot}</svg>
+    <div class="chuthich"><span><i style="background:var(--dong)"></i>${nhan1}</span>
+      <span><i style="background:var(--ngoc)"></i>${nhan2}</span>
+      <span><i style="background:var(--san)"></i>Lỗ</span></div>`;
+}
+
+/** Mục Quảng cáo: chọn kỳ, lọc tài khoản, lọc ad lỗ — tất cả tính ngay trên máy sếp. */
+function veAds(){
+  const a = D.khoi.ads;
+  const o = document.getElementById('s-ads');
+  const ky = layKy();
+  if(!ky){ o.innerHTML = `<div class="trong">Chưa có số quảng cáo. Máy nhà cần chạy báo cáo ads rồi đẩy lên.</div>`; return; }
+
+  const danhKy = Object.entries(a.ky).map(([k,v])=>[k, v.ten_ky || k]);
+  const tenTk = [...new Set((ky.quang_cao||[]).map(x=>x.tk).filter(Boolean))].sort();
+
+  let ds = (ky.quang_cao||[]).slice();
+  if(locTk) ds = ds.filter(x=>x.tk===locTk);
+  if(chiLo) ds = ds.filter(x=>x.ln<0);
+  ds.sort((x,y)=>x.ln-y.ln);
+
+  const t = ds.reduce((s,x)=>({chi:s.chi+x.chi, don:s.don+x.don,
+      doanh_thu:s.doanh_thu+x.doanh_thu, ln:s.ln+x.ln}), {chi:0,don:0,doanh_thu:0,ln:0});
+  const soLo = ds.filter(x=>x.ln<0).length;
+  const soBat = ds.filter(x=>x.trang_thai==='ACTIVE').length;
+
+  // gộp theo campaign trong phạm vi đang lọc
+  const mc = new Map();
+  ds.forEach(x=>{ const k=x.camp||'(không rõ)';
+    const g = mc.get(k) || {ten:k, so_ad:0, chi:0, don:0, doanh_thu:0, ln:0};
+    g.so_ad++; g.chi+=x.chi; g.don+=x.don; g.doanh_thu+=x.doanh_thu; g.ln+=x.ln; mc.set(k,g); });
+  const camp = [...mc.values()].sort((x,y)=>x.ln-y.ln);
+
+  const tk = (ky.tai_khoan||[]).filter(x=>!locTk || x.ten===locTk);
+
+  o.innerHTML = `
+    <div class="loc">
+      <div class="ky">${danhKy.map(([k,ten])=>
+        `<button data-ky="${esc(k)}" class="${k===kyChon?'on':''}">${esc(ten)}</button>`).join('')}</div>
+      <div class="hang-loc">
+        <label>Tài khoản
+          <select id="loc-tk">
+            <option value="">Tất cả (${tenTk.length})</option>
+            ${tenTk.map(x=>`<option value="${esc(x)}" ${x===locTk?'selected':''}>${esc(x)}</option>`).join('')}
+          </select>
+        </label>
+        <label><input type="checkbox" id="loc-lo" ${chiLo?'checked':''}> Chỉ ad đang lỗ</label>
+      </div>
+    </div>
+
+    <h2>${esc(ky.ten_ky||kyChon)} · ${esc(ky.tu)} → ${esc(ky.den)}</h2>
+    <p class="mota">${ky.so_ngay} ngày · ${ds.length} quảng cáo (${soBat} đang bật,
+      <span class="do">${soLo} đang lỗ</span>)${locTk?` · lọc theo <b>${esc(locTk)}</b>`:''}.
+      Lãi đã trừ giá vốn, không phải chỉ nhìn ROAS.</p>
+
+    <div class="o">
+      <div class="the"><div class="nhan">Chi</div><div class="so vang">${tien(t.chi)}đ</div></div>
+      <div class="the"><div class="nhan">Đơn</div><div class="so">${tien(t.don)}</div></div>
+      <div class="the"><div class="nhan">Doanh thu</div><div class="so lam">${tien(t.doanh_thu)}đ</div></div>
+      <div class="the"><div class="nhan">Lãi sau ads</div><div class="so ${t.ln>=0?'xanh':'do'}">${tien(t.ln)}đ</div></div>
+      <div class="the"><div class="nhan">ROAS</div><div class="so">${t.chi?so2(t.doanh_thu/t.chi):'—'}</div></div>
+      <div class="the"><div class="nhan">CPA thật</div><div class="so">${t.don?tien(t.chi/t.don)+'đ':'—'}</div></div>
+    </div>
+
+    ${(ky.theo_ngay||[]).length>1 ? `<div class="bieudo"><h3>Chi quảng cáo và lãi theo ngày</h3>
+      <p>Toàn bộ tài khoản trong kỳ — biểu đồ không đổi theo bộ lọc.</p>
+      <div class="cuon">${bieuDo(ky.theo_ngay, d=>({a:d.chi,b:d.ln,nhan:d.ngay.slice(8)+'/'+d.ngay.slice(5,7)}),
+        'Chi quảng cáo','Lãi')}</div></div>` : ''}
+
+    <h2>Tài khoản quảng cáo</h2>
+    <div class="bang"><div class="cuon"><table class="gon">
+      <thead><tr><th>Tài khoản</th><th class="p">Số ad</th><th class="p">Chi</th><th class="p">Đơn</th>
+        <th class="p">Doanh thu</th><th class="p">ROAS</th><th class="p">Lãi sau ads</th></tr></thead>
+      <tbody>${tk.map(x=>`<tr><td class="t">${esc(x.ten)}</td>
+        <td class="s" data-nhan="Số ad">${x.so_ad}</td>
+        <td class="s" data-nhan="Chi">${tien(x.chi)}đ</td>
+        <td class="s" data-nhan="Đơn">${tien(x.don)}</td>
+        <td class="s" data-nhan="Doanh thu">${tien(x.doanh_thu)}đ</td>
+        <td class="s" data-nhan="ROAS">${so2(x.roas)}</td>
+        <td class="s" data-nhan="Lãi sau ads">${dau(x.ln)}</td></tr>`).join('')}</tbody>
+    </table></div></div>
+
+    <h2>Campaign lỗ nặng nhất</h2>
+    <div class="bang"><div class="cuon"><table class="gon">
+      <thead><tr><th>Campaign</th><th class="p">Chi</th><th class="p">Đơn</th><th class="p">ROAS</th><th class="p">Lãi sau ads</th></tr></thead>
+      <tbody>${camp.slice(0,15).map(x=>`<tr><td class="t">${cat(x.ten,46)}</td>
+        <td class="s" data-nhan="Chi">${tien(x.chi)}đ</td>
+        <td class="s" data-nhan="Đơn">${tien(x.don)}</td>
+        <td class="s" data-nhan="ROAS">${x.chi?so2(x.doanh_thu/x.chi):'—'}</td>
+        <td class="s" data-nhan="Lãi sau ads">${dau(x.ln)}</td></tr>`).join('')}</tbody>
+    </table></div></div>
+
+    <h2>Quảng cáo lỗ nặng nhất</h2>
+    <div class="bang"><div class="cuon"><table class="gon">
+      <thead><tr><th>Quảng cáo</th><th>Tài khoản</th><th class="p">Chi</th><th class="p">Đơn</th>
+        <th class="p">ROAS</th><th class="p">Lãi sau ads</th></tr></thead>
+      <tbody>${ds.slice(0,20).map(x=>`<tr><td class="t">${cat(x.ten,44)}</td>
+        <td class="m" data-nhan="Tài khoản">${cat(x.tk,22)}</td>
+        <td class="s" data-nhan="Chi">${tien(x.chi)}đ</td>
+        <td class="s" data-nhan="Đơn">${tien(x.don)}</td>
+        <td class="s" data-nhan="ROAS">${so2(x.roas)}</td>
+        <td class="s" data-nhan="Lãi sau ads">${dau(x.ln)}</td></tr>`).join('')}</tbody>
+    </table></div></div>`;
+
+  o.querySelectorAll('.ky button').forEach(b=>{
+    b.onclick = ()=>{ kyChon = b.dataset.ky; locTk = ''; ve(); };   // ve() vẽ lại cả ô chỉ số lẫn mục này
+  });
+  o.querySelector('#loc-tk').onchange = (e)=>{ locTk = e.target.value; veAds(); };
+  o.querySelector('#loc-lo').onchange = (e)=>{ chiLo = e.target.checked; veAds(); };
+}
+
+function ve(){
+  const K = D.khoi, C = D.cap_nhat;
+  const nhansu = K.nhansu, kho = K.kho, kt = K.kiemtoan, ads = K.ads, don = K.donhang;
+
+  const moiNhat = Object.values(C).filter(Boolean).sort().pop();
+  document.getElementById('luc').innerHTML =
+    `Máy nhà gửi lên lúc <b>${gio(moiNhat)}</b> · nhân sự ${gio(C.nhansu)} · quảng cáo ${gio(C.ads)}`;
+
+  // ---------- ô chỉ số ----------
+  const t = (don && don.tong) || {};
+  const ta = (layKy() && layKy().tong) || {};
+  const nv = (nhansu && nhansu.nhan_vien) || [];
+  const coLich = nv.filter(x=>x.co_task);
+  const hong = (kt && kt.so_hong) || 0;
+  document.getElementById('o-chinh').innerHTML = [
+    ['Doanh thu ' + (t.so_ngay||0) + ' ngày', tien(t.doanh_thu)+'đ', 'vang', tien(t.don)+' đơn chốt'],
+    ['Lãi sau ads', tien(t.loi_nhuan_sau_ads)+'đ', (t.loi_nhuan_sau_ads>=0?'xanh':'do'), 'đã trừ giá vốn và quảng cáo'],
+    ['Chi quảng cáo', tien(t.chi_ads)+'đ', 'lam', ta.roas ? ('ROAS 7 ngày ' + so2(ta.roas)) : ''],
+    ['Bộ máy', (nv.length||0) + ' nhân viên', (hong?'do':'xanh'), coLich.length + ' người có lịch · ' + hong + ' hỏng'],
+    ['Kho nội dung', tien(kho && kho.tong_con) + ' video', 'vang', 'chưa dùng / ' + tien(kho && kho.tong_kho)],
+  ].map(([n,s,m,d])=>`<div class="the"><div class="nhan">${n}</div>
+      <div class="so ${m}">${s}</div><div class="duoi-the">${d||''}</div></div>`).join('');
+
+  // ---------- tổng quan ----------
+  const ngay = (don && don.theo_ngay) ? don.theo_ngay.slice(0,14).reverse() : [];
+  document.getElementById('s-tongquan').innerHTML = `
+    ${ngay.length ? `<div class="bieudo"><h3>Doanh thu và lãi theo ngày</h3>
+      <p>14 ngày gần nhất, cohort theo ngày tạo đơn.</p>
+      <div class="cuon">${bieuDo(ngay, d=>({a:d.doanh_thu, b:d.loi_nhuan_sau_ads, nhan:d.ten.slice(8)+'/'+d.ten.slice(5,7)}),
+        'Doanh thu','Lãi sau ads')}</div></div>` : ''}
+    ${kt ? `<h2>Sức khoẻ bộ máy</h2>
+      <p class="mota">Kiểm toán nội bộ lúc ${esc(kt.luc||'—')}: không chỉ hỏi “chạy xong chưa lỗi”
+         mà còn hỏi script còn không, lịch có bị tắt không, đầu ra có mới không.</p>
+      <div class="o">
+        <div class="the"><div class="nhan">Chạy tốt</div><div class="so xanh">${kt.so_tot||0}</div></div>
+        <div class="the"><div class="nhan">Cần để ý</div><div class="so vang">${kt.so_xem||0}</div></div>
+        <div class="the"><div class="nhan">Hỏng</div><div class="so ${kt.so_hong?'do':'xanh'}">${kt.so_hong||0}</div></div>
+      </div>
+      ${(kt.nhan_vien||[]).filter(x=>x.muc>0).length ? `<div class="bang"><div class="cuon"><table>
+        <thead><tr><th>Nhân viên</th><th>Phòng</th><th>Vấn đề</th></tr></thead><tbody>
+        ${kt.nhan_vien.filter(x=>x.muc>0).map(x=>`<tr><td class="t">${esc(x.ten)}</td>
+          <td class="m">${esc(x.phong)}</td>
+          <td class="m">${[].concat(x.loi||[],x.canh_bao||[]).map(esc).join('<br>')}</td></tr>`).join('')}
+        </tbody></table></div></div>` : `<div class="trong">Cả công ty đang chạy êm.</div>`}` : ''}`;
+
+  // ---------- nhân sự ----------
+  if(nhansu){
+    const mau = ['var(--dong)','var(--san)','var(--ngoc)','var(--lam)','var(--chu-nhat)'];
+    document.getElementById('s-nhansu').innerHTML = `
+      <div class="phong">${(nhansu.phong_ban||[]).map((p,i)=>{
+        const ds = nv.filter(x=>x.phong===p.id);
+        return `<div class="pb" style="--mau:${mau[i%5]}"><h4>${esc(p.ten)}</h4>
+          <div class="dem">${ds.length} người</div><div class="nv">${esc(p.nhiem_vu||'')}</div></div>`;
+      }).join('')}</div>
+      ${(nhansu.phong_ban||[]).map(p=>{
+        const ds = nv.filter(x=>x.phong===p.id);
+        if(!ds.length) return '';
+        return `<h2>${esc(p.ten)}</h2><div class="bang"><div class="cuon"><table>
+          <thead><tr><th>Nhân viên</th><th>Việc</th><th>Lịch</th><th>Tình trạng</th></tr></thead><tbody>
+          ${ds.map(x=>`<tr><td class="t">${esc(x.ten)}</td><td class="m">${esc(x.viec)}</td>
+            <td class="m">${esc(x.lich)}</td>
+            <td><span class="nhan-tt ${x.co_task?('tt'+x.muc):'ttx'}">${esc(x.tinh_trang)}</span></td></tr>`).join('')}
+          </tbody></table></div></div>`;
+      }).join('')}`;
+  }
+
+  // ---------- lịch ----------
+  document.getElementById('s-lich').innerHTML = coLich.length ? `
+    <h2>Lịch báo cáo hằng ngày</h2>
+    <p class="mota">Đọc thẳng từ Task Scheduler trên máy nhà, không phải khai báo.</p>
+    <div class="bang"><div class="cuon"><table class="gon">
+      <thead><tr><th>Nhân viên</th><th>Phòng</th><th>Lịch</th><th>Lần cuối</th><th>Lần tới</th><th>Tình trạng</th></tr></thead>
+      <tbody>${coLich.map(x=>`<tr><td class="t">${esc(x.ten)}</td><td class="m">${esc(x.phong_ten)}</td>
+        <td class="m">${esc(x.lich)}</td><td class="s">${esc(x.lan_cuoi||'—')}</td>
+        <td class="s">${esc(x.lan_toi||'—')}</td>
+        <td><span class="nhan-tt ${x.lich_bat?('tt'+x.muc):'ttx'}">${x.lich_bat?esc(x.tinh_trang):'lịch đang tắt'}</span></td>
+      </tr>`).join('')}</tbody></table></div></div>` : `<div class="trong">Chưa có số nhân sự.</div>`;
+
+  // ---------- quảng cáo ----------
+  veAds();
+
+  // ---------- đơn hàng ----------
+  document.getElementById('s-don').innerHTML = don ? `
+    <h2>Đơn hàng theo ngày</h2>
+    <p class="mota">Doanh thu = tổng hàng chốt (chưa trừ hoàn), khớp ô “Tổng hàng chốt” của POS.</p>
+    <div class="bang"><div class="cuon"><table class="gon">
+      <thead><tr><th>Ngày</th><th class="p">Đơn</th><th class="p">SP</th><th class="p">Doanh thu</th>
+        <th class="p">Giá vốn</th><th class="p">Chi ads</th><th class="p">Lãi sau ads</th>
+        <th class="p">Hoàn</th><th class="p">Hủy</th></tr></thead>
+      <tbody>${(don.theo_ngay||[]).map(x=>`<tr><td class="t">${esc(x.ten)}</td>
+        <td class="s" data-nhan="Đơn">${tien(x.don)}</td>
+        <td class="s" data-nhan="SP">${tien(x.so_luong_sp)}</td>
+        <td class="s" data-nhan="Doanh thu">${tien(x.doanh_thu)}đ</td>
+        <td class="s" data-nhan="Giá vốn">${tien(x.gia_von)}đ</td>
+        <td class="s" data-nhan="Chi ads">${tien(x.chi_ads)}đ</td>
+        <td class="s" data-nhan="Lãi sau ads">${dau(x.loi_nhuan_sau_ads)}</td>
+        <td class="s" data-nhan="Hoàn">${tien(x.hoan)}</td>
+        <td class="s" data-nhan="Hủy">${tien(x.huy)}</td></tr>`).join('')}</tbody>
+    </table></div></div>
+    <h2>Theo page</h2>
+    <div class="bang"><div class="cuon"><table class="gon">
+      <thead><tr><th>Page</th><th class="p">Đơn</th><th class="p">Doanh thu</th><th class="p">Chi ads</th>
+        <th class="p">Lãi sau ads</th><th class="p">Hoàn</th></tr></thead>
+      <tbody>${(don.theo_page||[]).map(x=>`<tr><td class="t">${cat(x.ten,40)}</td>
+        <td class="s" data-nhan="Đơn">${tien(x.don)}</td>
+        <td class="s" data-nhan="Doanh thu">${tien(x.doanh_thu)}đ</td>
+        <td class="s" data-nhan="Chi ads">${tien(x.chi_ads)}đ</td>
+        <td class="s" data-nhan="Lãi sau ads">${dau(x.loi_nhuan_sau_ads)}</td>
+        <td class="s" data-nhan="Hoàn">${tien(x.hoan)}</td></tr>`).join('')}</tbody>
+    </table></div></div>` : `<div class="trong">Chưa có số đơn hàng.</div>`;
+
+  // ---------- kho nội dung ----------
+  document.getElementById('s-kho').innerHTML = kho ? `
+    <h2>Kho nội dung Phòng Sáng Tạo</h2>
+    <p class="mota">${kho.san_pham.length} sản phẩm · ${tien(kho.tong_kho)} video ·
+       đã đăng ${tien(kho.tong_dang)} · còn ${tien(kho.tong_con)}.</p>
+    <div class="bang"><div class="cuon"><table class="gon">
+      <thead><tr><th>Sản phẩm</th><th>Page đăng lên</th><th class="p">Kho</th><th class="p">Đã đăng</th>
+        <th class="p">Còn</th><th class="p">Đủ dùng</th><th>Vướng</th></tr></thead>
+      <tbody>${kho.san_pham.map(x=>{
+        const v = [];
+        if(x.ads) v.push('đang chạy ads');
+        if(!x.co_page) v.push('thiếu page');
+        if(!x.co_cap) v.push('thiếu caption');
+        if(x.con===0 && x.tong>0) v.push('HẾT VIDEO');
+        return `<tr><td class="t">${esc(x.ten)}</td>
+          <td class="m" data-nhan="Page">${x.page_ten ? esc(x.page_ten) : '<span class="do">chưa gắn</span>'}</td>
+          <td class="s" data-nhan="Kho">${x.tong}</td>
+          <td class="s" data-nhan="Đã đăng">${x.da_dang}</td>
+          <td class="s" data-nhan="Còn">${x.con}</td>
+          <td class="s" data-nhan="Đủ dùng">${x.ngay} ngày</td>
+          <td class="m" data-nhan="Vướng">${esc(v.join(', '))||'—'}</td></tr>`;
+      }).join('')}</tbody>
+    </table></div></div>` : `<div class="trong">Chưa có số kho nội dung.</div>`;
+}
+
+tai();
+setInterval(tai, 300000);
+</script>
+</body>
+</html>

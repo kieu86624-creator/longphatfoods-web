@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Đăng nhập — Công ty Đại Long Phát</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --nen:#0A0E13; --tam:#121A22; --vien:#1E2A35;
+    --chu:#E7EEF5; --chu-mo:#8395A5; --chu-nhat:#5C6B7A;
+    --dong:#D9A441; --dong-mo:rgba(217,164,65,.12);
+    --ngoc:#3FB98A; --san-ho:#E86A6A;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--nen);color:var(--chu);
+    font-family:"Be Vietnam Pro",system-ui,sans-serif;
+    display:grid;place-items:center;padding:24px;
+    background-image:radial-gradient(1100px 520px at 50% -10%, rgba(217,164,65,.10), transparent 60%);
+  }
+  .hop{width:100%;max-width:392px}
+  .dau{text-align:center;margin-bottom:30px}
+  .huy{
+    width:52px;height:52px;margin:0 auto 16px;border-radius:13px;
+    background:linear-gradient(145deg,#E5B45C,#B8842C);
+    display:grid;place-items:center;color:#221703;font-weight:700;font-size:21px;
+    box-shadow:0 8px 26px -10px rgba(217,164,65,.65);
+  }
+  h1{font-size:20px;margin:0 0 5px;letter-spacing:-.01em}
+  .phu{color:var(--chu-nhat);font-size:13px;margin:0}
+  form{
+    background:var(--tam);border:1px solid var(--vien);border-radius:14px;
+    padding:26px 24px;box-shadow:0 26px 60px -34px rgba(0,0,0,.9);
+  }
+  label{display:block;font-size:12px;color:var(--chu-mo);margin:0 0 6px;letter-spacing:.03em}
+  input{
+    width:100%;padding:11px 13px;margin-bottom:16px;border-radius:9px;
+    border:1px solid var(--vien);background:#0D141B;color:var(--chu);
+    font:inherit;outline:none;transition:border-color .15s, box-shadow .15s;
+  }
+  input:focus{border-color:var(--dong);box-shadow:0 0 0 3px var(--dong-mo)}
+  button{
+    width:100%;padding:11px;border:0;border-radius:9px;cursor:pointer;
+    background:linear-gradient(145deg,#E5B45C,#C08F31);color:#1E1503;
+    font:inherit;font-weight:600;letter-spacing:.01em;
+  }
+  button:hover{filter:brightness(1.06)}
+  button:disabled{opacity:.55;cursor:default;filter:none}
+  .bao{
+    margin-top:15px;padding:10px 12px;border-radius:9px;font-size:13.5px;display:none;line-height:1.5;
+  }
+  .bao.loi{display:block;background:rgba(232,106,106,.11);color:#F0A0A0;border:1px solid rgba(232,106,106,.28)}
+  .bao.ok{display:block;background:rgba(63,185,138,.11);color:#8BD9BB;border:1px solid rgba(63,185,138,.28)}
+  .chan{text-align:center;margin-top:22px;font-size:12px;color:var(--chu-nhat);line-height:1.7}
+  .chan code{font-family:"IBM Plex Mono",monospace;color:var(--chu-mo)}
+</style>
+</head>
+<body>
+<div class="hop">
+  <div class="dau">
+    <div class="huy">ĐLP</div>
+    <h1>Công ty Đại Long Phát</h1>
+    <p class="phu">Bảng điều hành nội bộ</p>
+  </div>
+
+  <form id="f" autocomplete="on">
+    <label for="u">Tên đăng nhập</label>
+    <input id="u" name="username" autocomplete="username" required autofocus>
+
+    <label for="p">Mật khẩu</label>
+    <input id="p" name="password" type="password" autocomplete="current-password" required>
+
+    <button id="nut" type="submit">Đăng nhập</button>
+    <div class="bao" id="bao"></div>
+  </form>
+
+  <p class="chan">
+    Trang riêng của chủ shop. Số liệu do máy tại nhà đẩy lên,<br>
+    trang này <strong>chỉ để xem</strong> — không chạy được gì trên máy.
+  </p>
+</div>
+
+<script>
+const f = document.getElementById('f');
+const bao = document.getElementById('bao');
+const nut = document.getElementById('nut');
+
+f.onsubmit = async (e) => {
+  e.preventDefault();
+  nut.disabled = true; nut.textContent = 'Đang kiểm tra…';
+  bao.className = 'bao'; bao.textContent = '';
+  try {
+    const r = await fetch('/congty/api/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ user: document.getElementById('u').value,
+                             pass: document.getElementById('p').value })
+    });
+    const j = await r.json();
+    if (j.ok) {
+      bao.className = 'bao ok'; bao.textContent = 'Đăng nhập thành công, đang mở bảng điều hành…';
+      location.href = '/congty/';
+      return;
+    }
+    bao.className = 'bao loi'; bao.textContent = j.tin || 'Không đăng nhập được.';
+  } catch (err) {
+    bao.className = 'bao loi'; bao.textContent = 'Không kết nối được máy chủ. Thử lại giúp em.';
+  }
+  nut.disabled = false; nut.textContent = 'Đăng nhập';
+  document.getElementById('p').value = '';
+  document.getElementById('p').focus();
+};
+</script>
+</body>
+</html>

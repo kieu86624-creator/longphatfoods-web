@@ -1,3 +1,7 @@
 .DS_Store
 Thumbs.db
 *.log
+
+# file tam chua khoa bi mat, tuyet doi khong commit
+_congty_env.tmp.txt
+*.tmp.txt
