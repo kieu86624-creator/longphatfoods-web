@@ -18,7 +18,7 @@ const tuB64url = (s) => {
 };
 
 /** Băm mật khẩu bằng PBKDF2-SHA256, phải khớp với tao_mat_khau.ps1 trên máy. */
-export async function bamMatKhau(matKhau, saltB64, vong = 120000) {
+export async function bamMatKhau(matKhau, saltB64, vong = 100000) {
   const salt = tuB64url(saltB64.replace(/\+/g, "-").replace(/\//g, "_"));
   const key = await crypto.subtle.importKey(
     "raw", new TextEncoder().encode(matKhau), "PBKDF2", false, ["deriveBits"]
